@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lembrete de Creatina</title>
+    <link rel="stylesheet" href="creatina.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lembrete de Creatina</h1>
+        <div class="calendar">
+            <h2>Agosto 2023</h2>
+            <div class="days">
+                <!-- Os dias do mês serão gerados aqui -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Função para criar os dias do mês e verificar se todos estão marcados
+        function createCalendarDays() {
+            const daysContainer = document.querySelector('.days');
+            const daysInMonth = new Date(2023, 7, 0).getDate(); // Mês de agosto de 2023
+            let checkedCount = 0;
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.textContent = day;
+                dayElement.classList.add('day');
+
+                // Adicione um evento de clique para marcar/desmarcar o dia
+                dayElement.addEventListener('click', () => {
+                    dayElement.classList.toggle('checked');
+                    updateCheckedCount();
+                });
+
+                daysContainer.appendChild(dayElement);
+            }
+
+            // Função para atualizar a contagem de dias marcados
+            function updateCheckedCount() {
+                const allDays = document.querySelectorAll('.day');
+                checkedCount = 0;
+
+                allDays.forEach(day => {
+                    if (day.classList.contains('checked')) {
+                        checkedCount++;
+                    }
+                });
+
+                // Redirecionar para a página de parabéns se todos os dias estiverem marcados
+                if (checkedCount === daysInMonth) {
+                    setTimeout(function() {
+                        window.location.href = "parabens.html";
+                    }, 500); // Atraso de 500ms para dar tempo de ver a última marcação antes do redirecionamento
+                }
+            }
+        }
+
+        // Chame a função para criar os dias do mês e verificar se todos estão marcados
+        createCalendarDays();
+    </script>
+</body>
+</html>
